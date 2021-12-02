@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Customers</title>
+    <script src="./helpers.js" defer></script>
+    <script src="./components/nav.js" defer></script>
+    <script src="./components/footer.js" defer></script>
+    <script src="./components/quote.js" defer></script>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <nav is="nav-bar"></nav>
+
+    <div class="page-wrapper">
+      <div class="page">
+        <div class="content">
+          <div is="customer-quote" quote-text="Most wonderful tech support!" author="John Paul"></div>
+          <div is="customer-quote" quote-text="Fastest delivery I have every recieved!" author="Alex Rich"></div>
+          <div is="customer-quote" quote-text="Only the best quality products found here." author="Sandy Mayes"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer is="footer-bar"></footer>
+  </body>
+</html>
