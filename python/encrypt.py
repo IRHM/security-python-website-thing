@@ -82,6 +82,8 @@ def gen_key(args):
         args (list): All args passed in to script.
     """
 
+    print("Generating key...")
+
     key = get_random_bytes(32)
 
     out_file_path = get_files_from_args(args, 1, True)
@@ -94,6 +96,8 @@ def gen_key(args):
     file_out = open(out_file_path, "wb")
     file_out.write(key)
     file_out.close()
+
+    print("Key generated in file:", out_file_path)
 
 
 def encrypt(args):
