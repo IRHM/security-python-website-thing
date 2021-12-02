@@ -58,6 +58,7 @@ function addToRealBasket(img, name, price) {
     }
   } else {
     console.error("Local Storage is unavailable in this browser, so basket functionality won't work.");
+    return null;
   }
 }
 
@@ -81,6 +82,7 @@ function removeFromRealBasket(name) {
     }
   } else {
     console.error("Local Storage is unavailable in this browser, so basket functionality won't work.");
+    return null;
   }
 }
 
@@ -89,7 +91,9 @@ function getBasketItems() {
     let bskt = localStorage.getItem("basket");
 
     if (bskt) return JSON.parse(bskt);
+    else return null;
   } else {
     console.error("Local Storage is unavailable in this browser, so basket functionality won't work.");
+    return null;
   }
 }

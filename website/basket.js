@@ -55,7 +55,7 @@ applyStyles(basketStyles);
 const biw = document.getElementById("basket-items-wrapper");
 let basketItems = getBasketItems();
 
-if (basketItems) {
+if (basketItems && basketItems.length > 0) {
   const replaceBasketItemData = (toApp, item) => {
     if (item) {
       const img = toApp.getElementsByTagName("img")[0];
@@ -84,6 +84,11 @@ if (basketItems) {
 
     setTimeout(() => {
       el.remove();
+
+      // Get basket items again, and if there are now no items in basket show message
+      if (getBasketItems().length <= 0) {
+        showNoItemsMsg();
+      }
     }, 1000);
   };
 
@@ -98,4 +103,10 @@ if (basketItems) {
 
     biw.appendChild(toAppend);
   }
+} else {
+  showNoItemsMsg();
+}
+
+function showNoItemsMsg() {
+  biw.innerHTML = `<p style="text-align: center"><b>No Items In Basket!</b><br /> Find something you like on our store page and add it to your basket.</p>`;
 }
