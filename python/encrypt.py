@@ -106,11 +106,13 @@ def encrypt(args):
     files_in = get_files_from_args(args, 2)
 
     # Read data to encrypt from file
+    print("Reading file to encrypt...")
     file_in = open(files_in[0], "rb")
     to_enc = file_in.read()
     file_in.close()
 
     # Read key from file
+    print("Retrieving key...")
     key_file_in = open(files_in[1], "rb")
     key = key_file_in.read()
     key_file_in.close()
@@ -120,9 +122,12 @@ def encrypt(args):
 
     # https://docs.python.org/3/library/os.path.html#os.path.splitext
     file_in_name, file_in_ext = os.path.splitext(files_in[0])
-    file_out = open(f"{file_in_name}_encrypted{file_in_ext}", "wb")
+    file_out_path = f"{file_in_name}_encrypted{file_in_ext}"
+    print("Writing encrypted file...")
+    file_out = open(file_out_path, "wb")
     [file_out.write(x) for x in (cipher.nonce, tag, ciphertext)]
     file_out.close()
+    print("Done encrypting file. Output file:", os.path.abspath(file_out_path))
 
 
 def decrypt(args):
@@ -130,10 +135,12 @@ def decrypt(args):
     # second (1) will be path to key file to use for decrypting
     in_files = get_files_from_args(args, 2)
 
+    print("Retreiving key...")
     key_file_in = open(in_files[1], "rb")
     key = key_file_in.read()
     key_file_in.close()
 
+    print("Reading encrypted file...")
     enc_file_in = open(in_files[0], "rb")
     nonce, tag, ciphertext = [enc_file_in.read(x) for x in (16, 16, -1)]
 
@@ -141,14 +148,15 @@ def decrypt(args):
         cipher = AES.new(key, AES.MODE_EAX, nonce)
         data = cipher.decrypt_and_verify(ciphertext, tag)
 
+        print("Writing decrypted file...")
         enc_file_in_name, enc_file_in_ext = os.path.splitext(in_files[0])
-        file_out = open(
-            # Remove Suffix: https://docs.python.org/3/library/stdtypes.html#str.removesuffix
-            f"{enc_file_in_name.removesuffix('_encrypted')}_decrypted{enc_file_in_ext}",
-            "wb"
-        )
+        # Remove Suffix: https://docs.python.org/3/library/stdtypes.html#str.removesuffix
+        dec_file_out_path = f"{enc_file_in_name.removesuffix('_encrypted')}_decrypted{enc_file_in_ext}"
+        file_out = open(dec_file_out_path, "wb")
         file_out.write(data)
         file_out.close()
+        print("Done decrypting your file. Output file:",
+              os.path.abspath(dec_file_out_path))
     except ValueError as err:
         print(err)
 
