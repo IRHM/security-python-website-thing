@@ -9,6 +9,21 @@ body {
   font-family: sans-serif;
 }
 
+button {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  color: white;
+  background-color: black;
+  transition: background-color 200ms ease-in-out;
+}
+
+button:hover {
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
+
 .bold {
   font-weight: bold;
 }
